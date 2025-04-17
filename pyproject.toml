@@ -1,0 +1,13 @@
+[project]
+name = "ia-expansion-v3"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "firecrawl>=1.16.0",
+    "firecrawl-py>=1.16.0",
+    "pandas>=2.2.3",
+    "pydantic>=2.11.3",
+    "requests>=2.32.3",
+]
