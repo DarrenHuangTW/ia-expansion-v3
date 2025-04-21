@@ -132,3 +132,23 @@ Two files are generated for each run, with identical timestamps:
 ### Markdown Report (`.md`)
 
 Provides a human-readable summary of identified opportunities followed by a detailed breakdown for each keyword, including the final decision, justification, SERP details (including the raw HTML link), and the results of each assessment stage (Known PLP, Known PDP, Unknown URL AI Assessment).
+## Future Improvements / TODO
+
+The following are potential enhancements to improve the script's efficiency and reduce API costs:
+
+*   **Implement PLP Slug Matching:**
+    *   **Goal:** Reduce Firecrawl API calls for obvious PLP relevance matches.
+    *   **Task:** Before calling `assess_category_page_relevance` for a Known PLP, add logic to compare the URL slug with the keyword.
+    *   Use normalized exact matching and potentially high-threshold fuzzy matching (e.g., >95%).
+    *   If a strong match is found, classify the PLP as "Closely Related" with justification "Slug Match" and skip the Firecrawl assessment for that URL.
+
+*   **Limit Redundant PDP Assessments:**
+    *   **Goal:** Avoid unnecessary Firecrawl API calls once sufficient evidence of related products is found.
+    *   **Task:** Introduce a counter for "Related" PDPs found for a keyword (across both Known PDPs and AI-identified PDPs).
+    *   Set a threshold (e.g., `MAX_RELATED_PDPS_NEEDED = 3`).
+    *   Stop executing `assess_product_page_relevance` (for Known PDPs) and the PDP-related part of `classify_and_assess_url` (for Unknown URLs) once the counter reaches the threshold for the current keyword.
+    *   Update decision justification if the threshold was met.
+
+*   **(Optional) Explore Agentic Workflow:**
+    *   **Goal:** Potentially increase flexibility and leverage LLM reasoning more dynamically.
+    *   **Task:** Evaluate re-architecting the script using an agent platform like n8n with defined tools (Search, Browse/Assess, Slug Match) and a reasoning loop. Consider the trade-offs in complexity vs. benefit compared to the procedural optimizations above.
