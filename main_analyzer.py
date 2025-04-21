@@ -66,7 +66,7 @@ def load_keywords_from_file(filepath):
 # Load keywords from the file
 KEYWORD_FILE_PATH = 'keywords.txt' # Define the path to your keyword file
 KEYWORD_LIST = load_keywords_from_file(KEYWORD_FILE_PATH)
-KEYWORD_LIST = KEYWORD_LIST[:25]
+KEYWORD_LIST = KEYWORD_LIST[:25] # Avoid errors
 
 # API Call Delay (seconds)
 DELAY_BETWEEN_KEYWORDS = 2
